@@ -17,9 +17,9 @@ trigger:
 stages:
 
 #First Stage on Ubuntu
-- stage: LinuxStage
+- stage: Stage1
   jobs:
-  - job: LinuxScript
+  - job: Job1
     pool:
       vmImage: 'ubuntu-latest'    
     steps:
@@ -32,3 +32,36 @@ stages:
         echo Add other tasks to build, test, and deploy your project.
         echo See https://aka.ms/yaml
       displayName: 'Run a multi-line script'
+
+#Second Stage on Ubuntu Prod
+- stage: Stage2
+  dependsOn: Stage1
+  condition: succeeded()
+  jobs:
+  - job: ExternalScripts
+    pool:
+      vmImage: 'ubuntu-latest'
+     # these variables only available in ExternalScripts job
+    variables:
+      FIRST: 100
+      SECOND: 20
+      OPERATION: 4
+
+    steps:
+      - checkout: bashCalc
+      - task: Bash@3
+        displayName: 'install bc'
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Write your commands here
+            
+            echo 'installation starts'
+            sudo apt-get install bc
+            echo 'installation ends'
+
+      - task: Bash@3
+        displayName: 'run calc'
+        inputs:
+          filePath: 'calc.sh'
+
