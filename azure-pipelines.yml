@@ -17,9 +17,9 @@ trigger:
 stages:
 
 #First Stage on Ubuntu
-- stage: Linux Stage
+- stage: LinuxStage
   jobs:
-  - job: Linux script
+  - job: LinuxScript
     pool:
       vmImage: 'ubuntu-latest'    
     steps:
