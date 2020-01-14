@@ -1,19 +1,34 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+resources:
+  repositories:
+  # The name used to reference this repository in the checkout step
+  - repository: SnehaBashCalcRepo 
+    type: github
+    endpoint: Sneha Git Hub Connection
+    name: Prashneha/bashCalc
+# The name used to reference this repository in the checkout step
+  - repository: SnehaWindowsBatchRepo
+    type: github
+    endpoint: Sneha Git Hub Connection
+    name: Prashneha/winBatch
 
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+#First Stage on Ubuntu
+- stage: UbuntuQAEnvCheck
+  jobs:
+  - job: InlineScripts
+    pool:
+      vmImage: 'ubuntu-latest'    
+    steps:
+    #No Checkout
+    - checkout: none
+    - script: echo Hello, world!
+      displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    - script: |
+        echo Add other tasks to build, test, and deploy your project.
+        echo See https://aka.ms/yaml
+      displayName: 'Run a multi-line script'
