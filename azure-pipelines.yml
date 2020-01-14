@@ -48,7 +48,7 @@ stages:
       OPERATION: 4
 
     steps:
-      - checkout: Prashneha
+      - checkout: SnehaBashCalcRepo
       - task: Bash@3
         displayName: 'install bc'
         inputs:
