@@ -17,9 +17,9 @@ trigger:
 stages:
 
 #First Stage on Ubuntu
-- stage: UbuntuQAEnvCheck
+- stage: Linux Stage
   jobs:
-  - job: InlineScripts
+  - job: Linux script
     pool:
       vmImage: 'ubuntu-latest'    
     steps:
